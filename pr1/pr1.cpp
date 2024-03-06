@@ -132,7 +132,7 @@ void Draw(struct Record* records,int elementCount) {
 void insertMaxRecord(struct Record* table, int* currentElementCount, int maxElementCount) {
 	if (*currentElementCount < maxElementCount) {
 		*currentElementCount = *currentElementCount + 1;
-		table[*currentElementCount - 1] = { "Bruh",'B',999.00000,999,{99,99,9999} };
+		table[*currentElementCount - 1] = { "Bruh",'B',999.00000,999,{12,12,9999} };
 	}
 }
 
