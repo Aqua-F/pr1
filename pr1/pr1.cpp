@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <string>
 #include <vector>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -98,7 +99,8 @@ void printWithSpace4(double num, int width, int spaceCount) {
 
 }
 
-void Draw(struct Record* records) {
+void Draw(struct Record* records,int elementCount) {
+
 	unsigned short width = 95;
 	cout << endl;	cout.width(width); cout.fill('-'); cout << "-" << endl;
 	cout.fill(' '); cout.width(width - 1);  cout << left << "|Прайс-лист"; cout << "|" << endl;
@@ -112,7 +114,7 @@ void Draw(struct Record* records) {
 	cout << "|" << endl;
 	cout.width(width); cout.fill('-'); cout << "-" << endl;
 	cout.fill(' ');
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i <elementCount; i++) {
 		cout << left << "|"; cout.width(20); cout << left << records[i].name;
 		cout << left << "|"; cout.width(10); cout << left << records[i].type;
 		cout << left << "|"; cout.width(16); cout << left;
@@ -127,10 +129,11 @@ void Draw(struct Record* records) {
 	cout.width(width); cout.fill('-'); cout << "-" << endl;
 }
 
-void insertMaxRecord(struct Record* table) {
-	int elementCount = sizeof(table) / sizeof(Record);
-	table = new Record[elementCount +1];
-	table[elementCount] = { "BRUH",'B',99.00000,9,{12,04,2024}};
+void insertMaxRecord(struct Record* table, int* currentElementCount, int maxElementCount) {
+	if (*currentElementCount < maxElementCount) {
+		*currentElementCount = *currentElementCount + 1;
+		table[*currentElementCount - 1] = { "Bruh",'B',999.00000,999,{99,99,9999} };
+	}
 }
 
 int main()
@@ -138,15 +141,15 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
+	const int maxElementCount = 10;
+	int currentElementCount = 3;
+
 	struct Record table[10];
 	table[0] = { "Папка", 'К', 4.75000, 4, {03,07,2022} };
 	table[1] = { "Бумага", 'К', 13.90000, 10, {03,04,2021} };
 	table[2] = { "Калькулятор", 'О', 411.00000, 1, {4,3,2022} };
 
-	Record tempRecord = { "Лист",'К',25.00000,6,{15,01,2023}};
-
-	Draw(table);
-
-	insertMaxRecord(table);
-	Draw(table);
+	Draw(table, currentElementCount);
+	insertMaxRecord(table, &currentElementCount, maxElementCount);
+	Draw(table, currentElementCount);
 }
