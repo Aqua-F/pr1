@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <windows.h>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -72,12 +73,6 @@ void printWithZero4(int num, int width) {
 
 }
 
-/// <summary>
-/// Выводит число в вещественном формате справа
-/// </summary>
-/// <param name="num">Число</param>
-/// <param name="width">Ширина поля вывода</param>
-/// <param name="spaceCount">Количество пробелов</param>
 void printWithSpace4(double num, int width, int spaceCount) {
 
 	if (num < 10) {
@@ -132,16 +127,26 @@ void Draw(struct Record* records) {
 	cout.width(width); cout.fill('-'); cout << "-" << endl;
 }
 
+void insertMaxRecord(struct Record* table) {
+	int elementCount = sizeof(table) / sizeof(Record);
+	table = new Record[elementCount +1];
+	table[elementCount] = { "BRUH",'B',99.00000,9,{12,04,2024}};
+}
+
 int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	struct Record records[10];
+	struct Record table[10];
+	table[0] = { "Папка", 'К', 4.75000, 4, {03,07,2022} };
+	table[1] = { "Бумага", 'К', 13.90000, 10, {03,04,2021} };
+	table[2] = { "Калькулятор", 'О', 411.00000, 1, {4,3,2022} };
 
-	records[0] = { "Папка", 'К', 4.75000, 4, {03,07,2022} };
-	records[1] = { "Бумага", 'К', 13.90000, 10, {03,04,2021} };
-	records[2] = { "Калькулятор", 'О', 411.00000, 1, {4,3,2022} };
+	Record tempRecord = { "Лист",'К',25.00000,6,{15,01,2023}};
 
-	Draw(records);
+	Draw(table);
+
+	insertMaxRecord(table);
+	Draw(table);
 }
